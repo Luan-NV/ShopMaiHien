@@ -1,16 +1,14 @@
 ﻿using ShopMaiHien.Data.Enums;
-using ShopMaiHien.Data.Interfaces;
-using ShopMaiHien.Infrastructure.SharedKernel;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShopMaiHien.Data.Entities
+namespace ShopMaiHien.Application.ViewModels.Product
 {
-    [Table("Products")]
-    public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
+    public class ProductViewModel
     {
+        public int Id { get; set; }
+
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
@@ -47,12 +45,10 @@ namespace ShopMaiHien.Data.Entities
         [StringLength(255)]
         public string Unit { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual ProductCategory ProductCategory { set; get; }
+        public ProductCategoryViewModel ProductCategory { set; get; }
 
         public string SeoPageTitle { set; get; }
 
-        [Column(TypeName = "varchar")]
         [StringLength(255)]
         public string SeoAlias { set; get; }
 
