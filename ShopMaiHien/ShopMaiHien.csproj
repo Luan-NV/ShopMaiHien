@@ -18,4 +18,12 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShopMaiHien.Application\ShopMaiHien.Application.csproj" />
+    <ProjectReference Include="..\ShopMaiHien.Data.EF\ShopMaiHien.Data.EF.csproj" />
+    <ProjectReference Include="..\ShopMaiHien.Data\ShopMaiHien.Data.csproj" />
+    <ProjectReference Include="..\ShopMaiHien.Infrastructure\ShopMaiHien.Infrastructure.csproj" />
+    <ProjectReference Include="..\ShopMaiHien.Utilities\ShopMaiHien.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>
