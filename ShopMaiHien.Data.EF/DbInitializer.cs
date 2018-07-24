@@ -100,7 +100,6 @@ namespace ShopMaiHien.Data.EF
                     Id = CommonConstants.DefaultFooterId,
                     Content = content
                 });
-                _context.SaveChanges();
             }
 
             if (_context.Colors.Count() == 0)
@@ -248,6 +247,7 @@ namespace ShopMaiHien.Data.EF
                     Status = Status.Active
                 });
             }
+            _context.SaveChanges();
         }
     }
 }
