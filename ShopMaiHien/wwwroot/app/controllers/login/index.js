@@ -7,7 +7,7 @@
         $('#frmLogin').validate({
             errorClass: 'red',
             ignore: [],
-            lang: 'vi',
+            lang: 'en',
             rules: {
                 userName: {
                     required: true
@@ -41,7 +41,7 @@
                     window.location.href = "/Admin/Home/Index";
                 }
                 else {
-                    maihien.notify('Đăng nhập không đúng', 'error');
+                    maihien.notify('Login failed', 'error');
                 }
             }
         })

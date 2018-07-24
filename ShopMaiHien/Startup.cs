@@ -20,6 +20,7 @@ using ShopMaiHien.Data.IRepositories;
 using ShopMaiHien.Application.Implementation;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using ShopMaiHien.Helpers;
 
 namespace ShopMaiHien
 {
@@ -72,6 +73,8 @@ namespace ShopMaiHien
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<DbInitializer>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
 
