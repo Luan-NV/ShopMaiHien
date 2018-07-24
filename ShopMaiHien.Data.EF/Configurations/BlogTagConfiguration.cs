@@ -9,9 +9,8 @@ namespace ShopMaiHien.Data.EF.Configurations
     {
         public override void Configure(EntityTypeBuilder<BlogTag> entity)
         {
-            entity.Property(c => c.TagId).HasMaxLength(255).IsRequired()
-            .HasColumnType("varchar(255)");
-            // etc.
+            entity.Property(c => c.TagId).HasMaxLength(50).IsRequired()
+            .HasColumnType("varchar(50)");
         }
     }
 }

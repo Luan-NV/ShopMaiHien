@@ -1,17 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ShopMaiHien.Application.Implementation;
-using ShopMaiHien.Application.Interfaces;
-using ShopMaiHien.Data.EF;
-using ShopMaiHien.Data.EF.Repositories;
-using ShopMaiHien.Data.Entities;
-using ShopMaiHien.Data.IRepositories;
+using ShopMaiHien.Data;
+using ShopMaiHien.Models;
 using ShopMaiHien.Services;
+using ShopMaiHien.Data.EF;
+using ShopMaiHien.Data.Entities;
+using AutoMapper;
+using ShopMaiHien.Application.Interfaces;
+using ShopMaiHien.Data.EF.Repositories;
+using ShopMaiHien.Data.IRepositories;
+using ShopMaiHien.Application.Implementation;
 
 namespace ShopMaiHien
 {
@@ -35,6 +41,25 @@ namespace ShopMaiHien
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddAutoMapper();
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
@@ -43,16 +68,18 @@ namespace ShopMaiHien
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddTransient<DbInitializer>();
 
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -75,7 +102,7 @@ namespace ShopMaiHien
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            dbInitializer.Seed().Wait();
+
         }
     }
 }

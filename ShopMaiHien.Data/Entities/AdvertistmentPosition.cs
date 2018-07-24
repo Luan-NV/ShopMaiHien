@@ -1,14 +1,18 @@
-﻿using ShopMaiHien.Infrastructure.SharedKernel;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+using ShopMaiHien.Infrastructure.SharedKernel;
 
 namespace ShopMaiHien.Data.Entities
 {
+
     [Table("AdvertistmentPositions")]
     public class AdvertistmentPosition : DomainEntity<string>
     {
         [StringLength(20)]
+        [Required]
         public string PageId { get; set; }
 
         [StringLength(250)]

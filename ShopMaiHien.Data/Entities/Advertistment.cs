@@ -31,6 +31,6 @@ namespace ShopMaiHien.Data.Entities
         public int SortOrder { set; get; }
 
         [ForeignKey("PositionId")]
-        public virtual AdvertistmentPosition AdvertistmentPosition { get; set; }
+        public virtual AdvertistmentPage AdvertistmentPosition { get; set; }
     }
 }
