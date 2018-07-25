@@ -247,7 +247,7 @@ namespace ShopMaiHien.Data.EF
                     Status = Status.Active
                 });
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
