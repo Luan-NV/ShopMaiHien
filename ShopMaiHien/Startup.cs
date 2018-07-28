@@ -21,6 +21,7 @@ using ShopMaiHien.Application.Implementation;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using ShopMaiHien.Helpers;
+using ShopMaiHien.Infrastructure.Interfaces;
 
 namespace ShopMaiHien
 {
@@ -78,6 +79,9 @@ namespace ShopMaiHien
 
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+
             //Repositories
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
@@ -92,7 +96,7 @@ namespace ShopMaiHien
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddFile("Logs/maihien-{Date}.txt");
+            loggerFactory.AddFile("Logs/tedu-{Date}.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
